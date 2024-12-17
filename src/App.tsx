@@ -8,6 +8,8 @@ import {
   Pressable,
 } from 'react-native';
 import { useState, type PropsWithChildren } from 'react';
+// import ReactNativeHapticFeedback from 'react-native-haptic-feedback'
+import * as Haptics from 'expo-haptics';
 
 import DiceOne from '../assets/One.png'
 import DiceTwo from '../assets/Two.png'
@@ -20,6 +22,10 @@ type DiceProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
 }>
 
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndriodSystermSettings: false
+}
 const Dice = ({ imageUrl }: DiceProps) => {
   return (
     <View>
@@ -56,12 +62,13 @@ export default function App() {
         setDiceImage(DiceOne)
         break;
     }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   }
   return (
     <View style={styles.container}>
-      <Dice imageUrl={diceImage}/>
+      <Dice imageUrl={diceImage} />
       <Pressable
-      onPress={rollDiceOn}
+        onPress={rollDiceOn}
       >
         <Text style={styles.rollDiceBtnText}>Roll the dice</Text>
 
@@ -80,16 +87,16 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-  rollDiceBtnText:{
+  rollDiceBtnText: {
     // backgroundColor:'',
-    paddingHorizontal:40,
-    paddingVertical:10,
-    borderRadius:8,
-    borderWidth:2,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 2,
     borderColor: '#E5E0FF',
     fontSize: 16,
     color: '#8EA7E9',
-    fontWeight:'700',
+    fontWeight: '700',
     textTransform: 'uppercase',
 
 
